@@ -1,0 +1,3 @@
+system/boot.bin
+system/YOURFILEHERE.bin
+system/YOURFILEHERE.bin

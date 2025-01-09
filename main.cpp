@@ -2343,14 +2343,15 @@ int main()
         std::string rompath;
         std::string tape1path;
         std::string tape2path;
-        std::ifstream sourcecode;
-        sourcecode.open("system/config.txt");
-        if(sourcecode.is_open())
+        std::ifstream configFile;
+        configFile.open("system/config.txt");
+        if(configFile.is_open())
         {
-            std::getline(sourcecode, rompath);
-            std::getline(sourcecode, tape1path);
-            std::getline(sourcecode, tape2path);
+            std::getline(configFile, rompath);
+            std::getline(configFile, tape1path);
+            std::getline(configFile, tape2path);
         }
+        configFile.close();
     //
     
     //Load ROM
@@ -2358,11 +2359,15 @@ int main()
         FILE *rom = fopen(rompath.c_str(),"r");
         std::vector<int16_t> unprocessedBytes;
         int16_t b;
-        while ((b = getc(rom)) != EOF)
+
+        if(rom != NULL)
         {
-            unprocessedBytes.push_back(b);
+            while ((b = getc(rom)) != EOF)
+            {
+                unprocessedBytes.push_back(b);
+            }
+            fclose(rom);
         }
-        fclose(rom);
 
         for (int i = 0; i < (int)unprocessedBytes.size()/2; i++)
         {
@@ -2378,11 +2383,15 @@ int main()
             unprocessedBytes.clear();
         }
         b = 0;
-        while ((b = getc(tapefile)) != EOF)
+
+        if(tapefile != NULL)
         {
-            unprocessedBytes.push_back(b);
+            while ((b = getc(tapefile)) != EOF)
+            {
+                unprocessedBytes.push_back(b);
+            }
+            fclose(tapefile);
         }
-        fclose(tapefile);
 
         for (int i = 0; i < (int)unprocessedBytes.size()/2; i++)
         {
@@ -2399,11 +2408,15 @@ int main()
             unprocessedBytes.clear();
         }
         b = 0;
-        while ((b = getc(tapefile)) != EOF)
+
+        if(tapefile != NULL)
         {
-            unprocessedBytes.push_back(b);
+            while ((b = getc(tapefile)) != EOF)
+            {
+               unprocessedBytes.push_back(b);
+            }
+            fclose(tapefile);
         }
-        fclose(tapefile);
 
         for (int i = 0; i < (int)unprocessedBytes.size()/2; i++)
         {

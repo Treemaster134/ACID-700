@@ -1,3 +1,4 @@
+#include <cstring>
 #include <cstdint>
 #include <stdfloat>
 #include "raylib.h"
